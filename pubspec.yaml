@@ -13,7 +13,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl: ^0.16.0
+  intl: ^0.17.0-nullsafety.2
   esys_flutter_share: ^1.0.2
   
   # Replace in future for: excel: ^latest_version
