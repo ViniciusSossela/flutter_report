@@ -9,17 +9,16 @@ import 'package:flutter_report/src/share/native_share.dart'
 
 class PaginatedTableReport<K> extends StatefulWidget {
   final ReportModel<K> reportModel;
-  final void Function(DateTimeRange) onDateRangeChanged;
+  final void Function(DateTimeRange)? onDateRangeChanged;
 
-  const PaginatedTableReport(this.reportModel, {this.onDateRangeChanged})
-      : assert(reportModel != null);
+  const PaginatedTableReport(this.reportModel, {this.onDateRangeChanged});
 
   @override
   _PaginatedTableReportState createState() => _PaginatedTableReportState<K>();
 }
 
 class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
-  ReportModel<K> _reportModel;
+  ReportModel<K>? _reportModel;
 
   @override
   void initState() {
@@ -33,7 +32,7 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(_reportModel.title),
+        title: Text(_reportModel!.title),
       ),
       body: SafeArea(
         child: ListView(
@@ -56,8 +55,8 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
           color: Colors.blue,
         ),
         title: Text(
-          '${_reportModel.dateRange.start.parseToLocalizedDate(locale: _locale.languageCode)} e ${_reportModel.dateRange.end.parseToLocalizedDate(locale: _locale.languageCode)}',
-          style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: 18),
+          '${_reportModel!.dateRange.start.parseToLocalizedDate(locale: _locale.languageCode)} e ${_reportModel!.dateRange.end.parseToLocalizedDate(locale: _locale.languageCode)}',
+          style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 18),
         ),
       ),
       onTap: _onDatePickerRangeTapped,
@@ -72,7 +71,7 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
         lastDate: DateTime.now().add(Duration(days: 360)));
 
     if (picked != null) {
-      widget.onDateRangeChanged(picked);
+      widget.onDateRangeChanged!(picked);
     }
   }
 
@@ -82,9 +81,9 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
             height: MediaQuery.of(context).size.height + 100,
             width: double.infinity,
             child: _PaginatedDataTable<K>(
-              forecastData: _reportModel.dataSource,
+              forecastData: _reportModel!.dataSource,
               onExportAndShareTapped: () => shareExcelReport(
-                  _reportModel.excelHeader, _reportModel.excelData),
+                  _reportModel!.excelHeader, _reportModel!.excelData),
             ),
           )
         : Center(child: CircularProgressIndicator());
@@ -97,21 +96,18 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
 
     sheetObject.appendRow(excelHeader);
     excelData.forEach((row) => sheetObject.appendRow(row));
-
-    await excel.setDefaultSheet(sheetObject.sheetName);
-    await excel.encode().then((excelEncoded) async {
-      await file.share(excelEncoded, 'relatorio_hortify', 'xlsx',
-          desc: 'Relatório');
-    });
+    excel.setDefaultSheet(sheetObject.sheetName);
+    await file.share(excel.encode()!, 'relatorio_hortify', 'xlsx',
+        desc: 'Relatório');
   }
 }
 
 class _PaginatedDataTable<K> extends StatefulWidget {
-  final void Function() onExportAndShareTapped;
-  final DataTableSourceSort<K> forecastData;
+  final void Function()? onExportAndShareTapped;
+  final DataTableSourceSort<K>? forecastData;
 
   const _PaginatedDataTable(
-      {Key key, this.onExportAndShareTapped, this.forecastData})
+      {Key? key, this.onExportAndShareTapped, this.forecastData})
       : super(key: key);
 
   @override
@@ -119,10 +115,10 @@ class _PaginatedDataTable<K> extends StatefulWidget {
 }
 
 class _PaginatedDataTableState<K> extends State<_PaginatedDataTable> {
-  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
-  int _sortColumnIndex;
+  int? _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int? _sortColumnIndex;
   bool _sortAscending = true;
-  DataTableSourceSort<K> _forecastDataSource;
+  DataTableSourceSort<K>? _forecastDataSource;
 
   @override
   void didChangeDependencies() {
@@ -141,13 +137,13 @@ class _PaginatedDataTableState<K> extends State<_PaginatedDataTable> {
     return _forecastDataSource != null
         ? PaginatedDataTable(
             header: _exportButton(),
-            rowsPerPage: _rowsPerPage,
+            rowsPerPage: _rowsPerPage!,
             onRowsPerPageChanged: (value) =>
                 setState(() => _rowsPerPage = value),
             sortColumnIndex: _sortColumnIndex,
             sortAscending: _sortAscending,
-            columns: _forecastDataSource.tableHeaders(sort),
-            source: _forecastDataSource,
+            columns: _forecastDataSource!.tableHeaders(sort),
+            source: _forecastDataSource!,
           )
         : Center(child: CircularProgressIndicator());
   }
@@ -158,7 +154,8 @@ class _PaginatedDataTableState<K> extends State<_PaginatedDataTable> {
       color: Theme.of(context).primaryColor,
       child: Text(
         'Exportar',
-        style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),
+        style:
+            Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
       ),
       onPressed: widget.onExportAndShareTapped,
     );
@@ -166,7 +163,7 @@ class _PaginatedDataTableState<K> extends State<_PaginatedDataTable> {
 
   void sort<T>(
       GetComparableField<T, K> getField, int columnIndex, bool ascending) {
-    _forecastDataSource.sort<T>(getField, ascending);
+    _forecastDataSource!.sort<T>(getField, ascending);
     setState(() {
       _sortColumnIndex = columnIndex;
       _sortAscending = ascending;

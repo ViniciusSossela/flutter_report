@@ -18,14 +18,10 @@ class ReportModel<K> {
   final List<List<String>> excelData;
 
   ReportModel({
-    @required this.dataSource,
-    @required this.title,
-    @required this.dateRange,
-    @required this.excelHeader,
-    @required this.excelData,
-  }) : assert(dataSource != null &&
-            title != null &&
-            dateRange != null &&
-            excelHeader != null &&
-            excelData != null);
+    required this.dataSource,
+    required this.title,
+    required this.dateRange,
+    required this.excelHeader,
+    required this.excelData,
+  });
 }

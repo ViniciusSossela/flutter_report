@@ -7,20 +7,18 @@ homepage:
 publish_to: none
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  intl: ^0.17.0-nullsafety.2
+  intl: ^0.17.0
   share_plus: ^2.1.4
   path_provider: ^2.0.2
   
   # Replace in future for: excel: ^latest_version
-  # excel: ^1.1.5
-  excel:
-    git: https://github.com/ViniciusSossela/excel.git
+  excel: ^2.0.0-null-safety-3
 
 dev_dependencies:
   flutter_test:
