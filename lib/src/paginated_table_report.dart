@@ -10,8 +10,10 @@ import 'package:flutter_report/src/share/native_share.dart'
 class PaginatedTableReport<K> extends StatefulWidget {
   final ReportModel<K> reportModel;
   final void Function(DateTimeRange)? onDateRangeChanged;
+  final bool showCheckbox;
 
-  const PaginatedTableReport(this.reportModel, {this.onDateRangeChanged});
+  const PaginatedTableReport(this.reportModel,
+      {this.onDateRangeChanged, this.showCheckbox = false});
 
   @override
   _PaginatedTableReportState createState() => _PaginatedTableReportState<K>();
@@ -84,6 +86,7 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
               forecastData: _reportModel!.dataSource,
               onExportAndShareTapped: () => shareExcelReport(
                   _reportModel!.excelHeader, _reportModel!.excelData),
+              showCheckbox: widget.showCheckbox,
             ),
           )
         : Center(child: CircularProgressIndicator());
@@ -105,9 +108,13 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
 class _PaginatedDataTable<K> extends StatefulWidget {
   final void Function()? onExportAndShareTapped;
   final DataTableSourceSort<K>? forecastData;
+  final bool showCheckbox;
 
   const _PaginatedDataTable(
-      {Key? key, this.onExportAndShareTapped, this.forecastData})
+      {Key? key,
+      this.onExportAndShareTapped,
+      this.forecastData,
+      this.showCheckbox = false})
       : super(key: key);
 
   @override
@@ -136,6 +143,7 @@ class _PaginatedDataTableState<K> extends State<_PaginatedDataTable> {
   Widget build(BuildContext context) {
     return _forecastDataSource != null
         ? PaginatedDataTable(
+            showCheckboxColumn: widget.showCheckbox,
             header: _exportButton(),
             rowsPerPage: _rowsPerPage!,
             onRowsPerPageChanged: (value) =>
