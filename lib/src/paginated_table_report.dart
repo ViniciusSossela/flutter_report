@@ -10,10 +10,15 @@ import 'package:flutter_report/src/share/native_share.dart'
 class PaginatedTableReport<K> extends StatefulWidget {
   final ReportModel<K> reportModel;
   final void Function(DateTimeRange)? onDateRangeChanged;
+  final Widget? customWidget;
+  final Color appBarBackgroundColor;
   final bool showCheckbox;
 
   const PaginatedTableReport(this.reportModel,
-      {this.onDateRangeChanged, this.showCheckbox = false});
+      {this.onDateRangeChanged,
+      this.customWidget,
+      this.appBarBackgroundColor = Colors.white,
+      this.showCheckbox = false});
 
   @override
   _PaginatedTableReportState createState() => _PaginatedTableReportState<K>();
@@ -32,7 +37,7 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: widget.appBarBackgroundColor,
         elevation: 0,
         title: Text(_reportModel!.title),
       ),
@@ -40,6 +45,7 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
         child: ListView(
           children: <Widget>[
             if (widget.onDateRangeChanged != null) _dateRangePicker(),
+            if (widget.customWidget != null) widget.customWidget!,
             _reportDataTable(),
           ],
         ),
