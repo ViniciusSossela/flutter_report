@@ -101,7 +101,7 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
     sheetObject.appendRow(excelHeader);
     excelData.forEach((row) => sheetObject.appendRow(row));
     excel.setDefaultSheet(sheetObject.sheetName);
-    await file.share(excel.encode()!, 'relatorio_hortify', 'xlsx',
+    await file.share(excel.encode()!, 'relatorio_excel', 'xlsx',
         desc: 'Relatório');
   }
 }
