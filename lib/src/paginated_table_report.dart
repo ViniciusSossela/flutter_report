@@ -28,13 +28,8 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
   ReportModel<K>? _reportModel;
 
   @override
-  void initState() {
-    super.initState();
-    _reportModel = (widget as PaginatedTableReport<K>).reportModel;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    _reportModel = (widget as PaginatedTableReport<K>).reportModel;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: widget.appBarBackgroundColor,
