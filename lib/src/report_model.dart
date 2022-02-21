@@ -15,7 +15,7 @@ class ReportModel<K> {
   final DateTimeRange dateRange;
   final DataTableSourceSort<K> dataSource;
   final List<String> excelHeader;
-  final List<List<String>> excelData;
+  final List<List<dynamic>> excelData;
 
   ReportModel({
     required this.dataSource,

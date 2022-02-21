@@ -1,6 +1,5 @@
 import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_report/src/extensions/datetime_localization.dart';
 import 'package:flutter_report/src/report_model.dart';
 import 'package:flutter_report/src/share/native_share.dart'
@@ -94,7 +93,7 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
   }
 
   Future<void> shareExcelReport(
-      List<String> excelHeader, List<List<String>> excelData) async {
+      List<String> excelHeader, List<List<dynamic>> excelData) async {
     final excel = Excel.createExcel();
     final sheetObject = excel['relatorio'];
 
