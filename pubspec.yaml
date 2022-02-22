@@ -1,7 +1,6 @@
 name: flutter_report
 description: A flutter report package that allows also to export to excel.
-version: 0.0.1
-author: Vinicius T. Sossella
+version: 1.0.0
 homepage:
 
 publish_to: none
@@ -16,13 +15,7 @@ dependencies:
   intl: ^0.17.0
   share_plus: ^2.1.4
   path_provider: ^2.0.2
-  
-  # Replace in future for: excel: ^latest_version
-  # excel: ^2.0.0-null-safety-3
-  excel:
-    git:
-        url: https://github.com/justkawal/excel.git
-        ref: null-safety
+  syncfusion_flutter_xlsio: ^19.4.53-beta
 
 dev_dependencies:
   flutter_test:

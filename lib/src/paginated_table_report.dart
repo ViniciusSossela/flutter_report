@@ -1,10 +1,10 @@
-import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_report/src/extensions/datetime_localization.dart';
 import 'package:flutter_report/src/report_model.dart';
 import 'package:flutter_report/src/share/native_share.dart'
     if (dart.library.html) 'package:flutter_report/src/share/web_downloader.dart'
     as file;
+import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
 class PaginatedTableReport<K> extends StatefulWidget {
   final ReportModel<K> reportModel;
@@ -94,17 +94,25 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
 
   Future<void> shareExcelReport(
       List<String> excelHeader, List<List<dynamic>> excelData) async {
-    final excel = Excel.createExcel();
-    final sheetObject = excel['relatorio'];
+    final Workbook workbook = Workbook();
+    final Worksheet sheet = workbook.worksheets[0];
+    sheet.name = 'relatorio';
 
-    sheetObject.appendRow(excelHeader);
-    excelData.forEach((row) => sheetObject.appendRow(row));
-    excel.setDefaultSheet(sheetObject.sheetName);
-    final excelEncoded = excel.encode();
-    if (excelEncoded != null) {
-      await file.share(excelEncoded, 'relatorio_excel', 'xlsx',
-          desc: 'Relatório');
+    for (var rowIndex = 0; rowIndex < excelData.length; rowIndex++) {
+      for (var colIx = 0; colIx < excelData[rowIndex].length; colIx++) {
+        final _row = rowIndex + 1, _col = colIx + 1;
+        final _value = excelData[rowIndex][colIx];
+        final _range = sheet.getRangeByIndex(_row, _col);
+        _range.setValue(_value);
+        if (_value is double) {
+          _range.numberFormat = r'#,##0.00';
+        }
+      }
     }
+
+    final List<int> bytes = workbook.saveAsStream();
+    await file.share(bytes, 'relatorio_excel', 'xlsx', desc: 'Relatório');
+    workbook.dispose();
   }
 }
 
