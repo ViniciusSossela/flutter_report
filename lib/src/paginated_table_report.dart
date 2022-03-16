@@ -98,6 +98,9 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
     final Worksheet sheet = workbook.worksheets[0];
     sheet.name = 'relatorio';
 
+    excelData.insert(0, excelHeader);
+
+    //data
     for (var rowIndex = 0; rowIndex < excelData.length; rowIndex++) {
       for (var colIx = 0; colIx < excelData[rowIndex].length; colIx++) {
         final _row = rowIndex + 1, _col = colIx + 1;
