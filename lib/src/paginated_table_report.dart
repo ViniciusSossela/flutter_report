@@ -9,12 +9,14 @@ import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 class PaginatedTableReport<K> extends StatefulWidget {
   final ReportModel<K> reportModel;
   final void Function(DateTimeRange)? onDateRangeChanged;
+  final void Function(int)? onPageChanged;
   final Widget? customWidget;
   final Color appBarBackgroundColor;
   final bool showCheckbox;
 
   const PaginatedTableReport(this.reportModel,
       {this.onDateRangeChanged,
+      this.onPageChanged,
       this.customWidget,
       this.appBarBackgroundColor = Colors.white,
       this.showCheckbox = false});
@@ -87,6 +89,7 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
               onExportAndShareTapped: () => shareExcelReport(
                   _reportModel!.excelHeader, _reportModel!.excelData),
               showCheckbox: widget.showCheckbox,
+              onPageChanged: widget.onPageChanged,
             ),
           )
         : Center(child: CircularProgressIndicator());
@@ -121,12 +124,14 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
 
 class _PaginatedDataTable<K> extends StatefulWidget {
   final void Function()? onExportAndShareTapped;
+  final void Function(int)? onPageChanged;
   final DataTableSourceSort<K>? forecastData;
   final bool showCheckbox;
 
   const _PaginatedDataTable(
       {Key? key,
       this.onExportAndShareTapped,
+      this.onPageChanged,
       this.forecastData,
       this.showCheckbox = false})
       : super(key: key);
@@ -166,6 +171,7 @@ class _PaginatedDataTableState<K> extends State<_PaginatedDataTable> {
             sortAscending: _sortAscending,
             columns: _forecastDataSource!.tableHeaders(sort),
             source: _forecastDataSource!,
+            onPageChanged: widget.onPageChanged,
           )
         : Center(child: CircularProgressIndicator());
   }
