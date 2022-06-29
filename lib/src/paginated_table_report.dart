@@ -82,7 +82,6 @@ class _PaginatedTableReportState<K> extends State<PaginatedTableReport> {
   Widget _reportDataTable() {
     return _reportModel != null
         ? Container(
-            height: MediaQuery.of(context).size.height + 100,
             width: double.infinity,
             child: _PaginatedDataTable<K>(
               forecastData: _reportModel!.dataSource,
