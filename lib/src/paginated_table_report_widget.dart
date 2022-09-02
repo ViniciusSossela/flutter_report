@@ -169,13 +169,19 @@ class _PaginatedDataTableState<K> extends State<_PaginatedDataTable> {
   }
 
   Widget _exportButton() {
-    return FlatButton(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-      color: Theme.of(context).primaryColor,
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Theme.of(context).primaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        padding: EdgeInsets.all(10),
+      ),
       child: Text(
         'Exportar',
-        style:
-            Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
+        style: Theme.of(context).textTheme.button!.copyWith(
+              color: Colors.white,
+            ),
       ),
       onPressed: widget.onExportAndShareTapped,
     );
