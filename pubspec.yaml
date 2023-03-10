@@ -16,6 +16,7 @@ dependencies:
   share_plus: ^4.0.10+1
   path_provider: ^2.0.2
   syncfusion_flutter_xlsio: ^20.2.44-beta
+  data_table_2: ^2.3.12
 
 dev_dependencies:
   flutter_test:
