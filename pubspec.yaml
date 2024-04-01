@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.18.0
-  share_plus: ^4.0.10+1
+  share_plus: ^8.0.2
   path_provider: ^2.0.2
   syncfusion_flutter_xlsio: ^20.2.44-beta
   data_table_2: ^2.3.12
