@@ -53,7 +53,8 @@ class _PaginatedTableReportWidgetState<K>
         ),
         title: Text(
           '${_reportModel!.dateRange.start.parseToLocalizedDate(locale: _locale.languageCode)} e ${_reportModel!.dateRange.end.parseToLocalizedDate(locale: _locale.languageCode)}',
-          style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 18),
+          style:
+              Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: 18),
         ),
       ),
       onTap: _onDatePickerRangeTapped,
@@ -179,7 +180,7 @@ class _PaginatedDataTableState<K> extends State<_PaginatedDataTable> {
       ),
       child: Text(
         'Exportar',
-        style: Theme.of(context).textTheme.button!.copyWith(
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               color: Colors.white,
             ),
       ),
