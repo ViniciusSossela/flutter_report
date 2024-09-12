@@ -9,5 +9,5 @@ Future<void> share(List<int> encodedData, String fileName, String fileExtension,
   final file = await File('${tempDir.path}/$fileName.$fileExtension').create();
   await file.writeAsBytes(encodedData);
 
-  await Share.shareFiles([file.path], mimeTypes: ['*/*'], subject: desc);
+  await Share.share(file.path, subject: desc);
 }
