@@ -90,13 +90,16 @@ class _PaginatedTableShareableAsyncState
                   : PageSyncApproach.goToFirst,
           minWidth: 800,
           fit: FlexFit.tight,
+          headingRowColor: WidgetStateProperty.all(const Color(0xFFF8F9FE)),
+          headingRowHeight: 48,
+          dataRowHeight: 52,
           border: TableBorder(
-            top: const BorderSide(color: Colors.black),
-            bottom: BorderSide(color: Colors.grey[300]!),
-            left: BorderSide(color: Colors.grey[300]!),
-            right: BorderSide(color: Colors.grey[300]!),
-            verticalInside: BorderSide(color: Colors.grey[300]!),
-            horizontalInside: const BorderSide(color: Colors.grey, width: 1),
+            top: BorderSide.none,
+            bottom: BorderSide(color: Colors.grey.shade200),
+            left: BorderSide.none,
+            right: BorderSide.none,
+            verticalInside: BorderSide.none,
+            horizontalInside: BorderSide(color: Colors.grey.shade100),
           ),
           initialFirstRowIndex: _initialRow,
           onPageChanged: (_) {},
@@ -116,9 +119,28 @@ class _PaginatedTableShareableAsyncState
           columns: widget.columns,
           empty: Center(
               child: Container(
-                  padding: const EdgeInsets.all(20),
-                  color: Colors.grey[200],
-                  child: const Text('No data'))),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF8F9FE),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.inbox_outlined,
+                          size: 48, color: Colors.grey.shade300),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Nenhum dado encontrado',
+                        style: TextStyle(
+                          color: Colors.grey.shade500,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ))),
           source: _dataSource!,
         ),
       ],
