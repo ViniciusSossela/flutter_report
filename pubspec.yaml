@@ -15,7 +15,7 @@ dependencies:
   intl: ^0.20.2
   share_plus: ^13.1.0
   path_provider: ^2.0.2
-  syncfusion_flutter_xlsio: ^29.2.4
+  syncfusion_flutter_xlsio: ^33.2.15 
   data_table_2: ^2.3.12
 
 dev_dependencies:
